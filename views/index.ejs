@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- //
+        beírtam ide a <%= meta.title %> -t 
+    -->
+    <title> <%= meta.title %> </title>
+    <meta name="description" content=" <%= meta.description %> " >
+    <!--  
+    létrehozok egy link tag-et ami a style.css-re mutat
+    -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 111
+    ejs template kezelő szintaxisa:
+    https://kepzes.appworld.hu/nodejs-alapok/docs/EJS/P%C3%A9lda
+    bizonyos szintaxisnak megfeleltethető szabályszerűséget követ az ejs változóknak a kiíratása:
+    Mivel küldjük a list változót ide a h1 tagek közé/helyére
+    -->
+
+    <h1>Products (<%= list.length %>)</h1>
+
+    <!-- 222
+        most kilistázzuk őket
+    -->
+    <ul>
+        <% list.forEach( function(product) { %>
+            <li> 
+                <h3> <%= product.title %> </h3> 
+                <a href="#"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>">   </a>
+             
+                <p>
+                    <div class="price">   Price: <%= product.price %>  </div>
+                    <div class="discount"> Discount:  <strong><%= product.discountPercentage %>%  </strong> </div>
+                </p>
+                <br>
+             
+                <p>
+                    <% const originalPrice = product.price / ( 1 - ( product.discountPercentage / 100) ) %>
+                    <div class="original"> Original Price:  <del>  <%= Math.round(originalPrice) %> </del> </div>
+
+                    <div class="rating"> Rating:  <%= product.rating %>  <span> &bigstar; </span>  </div>
+                </p>
+                <br>
+                <p>
+                    <a href="#"><button>Buy Now</button></a>
+                </p>
+                
+            </li>
+        <% }) %>
+    </ul>
+
+</body>
+</html>
