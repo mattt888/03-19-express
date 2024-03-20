@@ -58,12 +58,10 @@ li > h3 {
 
 .price, .original {
     float: left;
-    /* margin: 10px 5px 5px; */
 }
 
 .discount {
     float: right;
-    /* margin: 10px 5px 5px; */
     color: rgb(210, 68, 68)
 }
 
