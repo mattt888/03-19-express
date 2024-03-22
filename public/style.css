@@ -88,3 +88,26 @@ button:hover {
 img:hover {
     opacity: 0.8;
 }
+
+.btn {
+    padding: 4px 7px;
+    text-align: center;
+
+}
+
+.btn-add-to-cart {
+    display: block;
+    background-color: lightgreen;
+    border: 1px inset;
+    text-decoration: none;
+    color: inherit;
+}
+
+a.product-title {
+    color: inherit;
+    text-decoration: none;
+}
+
+a.product-title:hover {
+    text-decoration: underline;
+}

@@ -12,25 +12,24 @@
     <h1>Products (<%= list.length %>)</h1>
     <ul>
         <% list.forEach( function(product) { %>
-            <li> 
-                <h3> <%= product.title %> </h3> 
+            <li>
+                <h3> <a href="/product/<%= product.id %>" class="product-title"> <%= product.title %> </a>   </h3>  
                 <a href="#"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>"> </a>
              
                 <p>
-                    <div class="price">   Price: <%= product.price %>  </div>
+                    <div class="price">   Price: <%= formattedPrice(product.price) %>  </div>
                     <div class="discount"> Discount:  <strong><%= product.discountPercentage %>%  </strong> </div>
                 </p>
                 <br>
              
                 <p>
-                    <% const originalPrice = product.price / ( 1 - ( product.discountPercentage / 100) ) %>
-                    <div class="original"> Original Price:  <del>  <%= Math.round(originalPrice) %> </del> </div>
+                    <div class="original"> Original Price: <del> <%= getOriginalPrice(product) %> </del> </div>
 
-                    <div class="rating"> Rating:  <%= product.rating %>  <span> &bigstar; </span>  </div>
+                    <div class="rating"> Rating:  <%= product.rating %><span> &bigstar;</span></div>
                 </p>
                 <br>
                 <p>
-                    <a href="#"><button>Buy Now</button></a>
+                    <a href="/" class="btn btn-add-to-cart">Buy Now</a>
                 </p>
                 
             </li>
