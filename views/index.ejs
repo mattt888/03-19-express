@@ -14,7 +14,7 @@
         <% list.forEach( function(product) { %>
             <li>
                 <h3> <a href="/product/<%= product.id %>" class="product-title"> <%= product.title %> </a>   </h3>  
-                <a href="#"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>"> </a>
+                <a href="/product/<%= product.id %>"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>"> </a>
              
                 <p>
                     <div class="price">   Price: <%= formattedPrice(product.price) %>  </div>

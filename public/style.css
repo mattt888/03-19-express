@@ -29,19 +29,35 @@ li {
     width: 100%;
 }
 
+li > a {
+    display: block;
+    overflow: hidden; /* Kép határain belül tartja a zoom-ot */
+    position: relative; /* Szükséges, hogy az abszolút pozícionálás működjön */
+}
+
 li > a > img {
     width: 100%;
     border-radius: 10px;
     box-shadow: 0 0 5px;
     height: 200px;
     object-fit: cover;
+    transition: transform 0.5s ease-in-out; /* Csak a transformációt animálja */
+
+}
+
+li > a:hover > img {
+    transform: scale(1.3); /* Itt változtathatod a nagyítási értéket */
+}
+
+img:hover {
+    opacity: 0.8;
 }
 
 li > h3 {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-align:center
+    text-align: center
 }
 
 @media ( min-width: 768px ) {
@@ -84,15 +100,9 @@ button:hover {
     background-color: rgba(93,153,48,0.4);
   }
 
-
-img:hover {
-    opacity: 0.8;
-}
-
 .btn {
     padding: 4px 7px;
     text-align: center;
-
 }
 
 .btn-add-to-cart {
