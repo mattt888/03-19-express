@@ -121,3 +121,23 @@ a.product-title {
 a.product-title:hover {
     text-decoration: underline;
 }
+
+#product-details {
+    display: flex;
+}
+
+#left {
+    flex-grow: 3;
+}
+
+#left > img {
+    width: 100%;
+}
+
+#right {
+    flex-grow: 1;
+}
+
+#product-details > * {
+    padding: 10px;
+}

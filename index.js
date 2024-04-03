@@ -12,6 +12,9 @@ app.use(function(req, res, next){
 
     res.locals.formattedPrice = utils.formattedPrice
     res.locals.getOriginalPrice = utils.getOriginalPrice
+
+    res.locals.excepts = ['thumbnail', 'images']
+
     next()
 })
 
@@ -39,21 +42,14 @@ app.get('/product/:id', (req,res) => {
             return
         }
 
-        res.write( JSON.stringify( result.products[requiredIndex] ))
-        res.end()
+        const item = result.products[requiredIndex]
+        console.log('item OBJEKTUM: ' , item);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////
-        // 2. alternatív megoldás: 
-        // try {
-        //     const product = result.products.filter( product => product.id == req.params.id )[0]
-        //     res.write( JSON.stringify( product ))
-        //     res.end()
-        // } catch {
-        //     res.sendStatus(404);
-        //     res.end()
-        // }
-/////////////////////////////////////////////////////////////////////////////////////////////////
-
+        res.render('product', {item: item, meta: {
+     
+            title: item.title,
+            description: 'Tekintse meg a(z) ' + item.title + ' termékünket az xy webshop kínálatában' 
+        }} )
     })
 })
 

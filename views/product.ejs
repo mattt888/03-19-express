@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= meta.title %> </title>
+    <meta name="description" content=" <%= meta.description %> " >
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1> <%= meta.title %> </h1>
+        <div id="product-details">
+
+            <div id="left">
+                <img src="<%= item.thumbnail %>" alt="">
+            </div>
+
+            <div id="right">
+                <% for ( let key in item ) { %>
+                    <% console.log('item.key: ' , item.key) %>
+                    <% console.log('item[key]: ' , item[key]) %>
+                        <%- include('includes/product-attribute', {attr: key, value: item[key]}) %>
+                <%  }  %>
+            </div>
+        </div>
+</body>
+</html>
