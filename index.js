@@ -1,6 +1,7 @@
 const express = require('express')
 const { log } = require('node:console')
 const utils = require('./utils')
+const lang = require('./languages/hu')
 
 const app = express()
 
@@ -9,11 +10,18 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 
 app.use(function(req, res, next){
-
+    
     res.locals.formattedPrice = utils.formattedPrice
     res.locals.getOriginalPrice = utils.getOriginalPrice
 
     res.locals.excepts = ['thumbnail', 'images']
+
+    res.locals.__ = function (langAttr){
+        if ( (!lang[langAttr]) ) {
+            return langAttr
+        }
+        return lang[langAttr]
+    }
 
     next()
 })
@@ -31,11 +39,18 @@ utils.getProducts()
     })
 })
 
-app.get('/product/:id', (req,res) => {
+app.get('/product/', (req,res) => {
   
     utils.getProducts().then(result => {
 
-        const requiredIndex = result.products.findIndex( product => product.id == req.params.id)
+        log('req.query_1:', req.query);
+        const {id} = req.query 
+
+        const requiredIndex = result.products.findIndex( product => product.id == id)
+
+        log('id:', id);
+        log('req.query_2:', req.query);
+        log('requiredIndex:', requiredIndex);
 
         if (requiredIndex === -1 ){
             res.status(404).render( 'errors/404' )
@@ -43,7 +58,7 @@ app.get('/product/:id', (req,res) => {
         }
 
         const item = result.products[requiredIndex]
-        console.log('item OBJEKTUM: ' , item);
+        log('item OBJEKTUM: ' , item);
 
         res.render('product', {item: item, meta: {
      
@@ -54,5 +69,6 @@ app.get('/product/:id', (req,res) => {
 })
 
 app.listen(3000, () => {
-    console.log("started at: 3000");
+    log("started at: 3000")
+    log('---------------------------------------------------------------')
 })
