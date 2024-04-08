@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> <%= meta.title %> </title>
+    <meta name="description" content=" <%= meta.description %> " >
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <h1> <%= meta.title %> </h1>
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Kép
+                </th>
+                <th>
+                    Név
+                </th>
+                <th>
+                    Mennyiség
+                </th>
+                <th>
+                    Ár
+                </th>
+                <th>
+                    Subtotal
+                </th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>
+                    <span> <img src="<%= item.thumbnail %>" alt="" > </span>
+                </td>
+                <td>
+                    <%= item.title %>
+                </td>
+                <td>
+                    <input type="number" name="" max="10" style="width:50px" id="" value="1">
+                </td>
+                <td>
+                    <%- formattedPrice(item.price) %>
+                </td>
+                <td>
+                    <%- formattedPrice(item.price) %>
+                </td>
+            </tr>
+
+        </tbody>
+
+
+    </table>
+</body>
+</html>

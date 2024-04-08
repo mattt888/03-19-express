@@ -17,8 +17,8 @@
 
             <div id="right">
                 <% for ( let key in item ) { %>
-                    <% console.log('item.key: ' , item.key) %>
-                    <% console.log('item[key]: ' , item[key]) %>
+                    <!-- < % console.log('item.key: ' , item.key) %> -->
+                    <% console.log('Product_Details_Objektumának az értéke: item[key]:' , item[key]) %>
                         <%- include('includes/product-attribute', {attr: key, value: item[key]}) %>
                 <%  }  %>
             </div>

@@ -9,6 +9,9 @@ app.set('view engine', 'ejs')
 
 app.use(express.static('public'))
 
+app.use(express.urlencoded( {extended: true} ))
+
+
 app.use(function(req, res, next){
     
     res.locals.formattedPrice = utils.formattedPrice
@@ -16,11 +19,15 @@ app.use(function(req, res, next){
 
     res.locals.excepts = ['thumbnail', 'images']
 
-    res.locals.__ = function (langAttr){
+    res.locals.translation = function (langAttr){
         if ( (!lang[langAttr]) ) {
+            log('NEM talált lang[langAttr]:', lang[langAttr])
+            // log('langAttr:', langAttr)
             return langAttr
+        } else {
+            log('TALÁLT lang[langAttr]:', lang[langAttr])
+            return lang[langAttr]
         }
-        return lang[langAttr]
     }
 
     next()
@@ -59,12 +66,25 @@ app.get('/product/', (req,res) => {
 
         const item = result.products[requiredIndex]
         log('item OBJEKTUM: ' , item);
-
+        log('---------------------------------------------------------------')
         res.render('product', {item: item, meta: {
      
             title: item.title,
             description: 'Tekintse meg a(z) ' + item.title + ' termékünket az xy webshop kínálatában' 
         }} )
+    })
+})
+
+app.post('/add-to-cart', (req,res) => {
+    utils.getProducts().then( productsList => {
+
+        const found = productsList.products.filter( product => product.id == req.body.id)[0]
+        log('found:', found)
+
+        res.render('cart', { item: found, meta: {
+            title: 'Kosár',
+            description: ''
+        } })
     })
 })
 

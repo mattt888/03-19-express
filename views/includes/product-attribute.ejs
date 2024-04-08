@@ -1,4 +1,7 @@
+<% console.log('!excepts.includes(attr):', !excepts.includes(attr)) %>
+<% console.log('(attr):', attr) %>
 <% if( !excepts.includes(attr) )  { %>
     <li> 
-        <%=__(attr) %>: <%= __(value) %> </li>
+        <%= translation(attr) %>: <%= translation(value) %> </li>
     <% } %>
+    

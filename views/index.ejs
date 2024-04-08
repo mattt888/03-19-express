@@ -14,14 +14,14 @@
         <% list.forEach( function(product) { %>
             <li>
                 <h3> <a href="/product/?id=<%= product.id %>" class="product-title"> <%= product.title %> </a>   </h3>  
-                <a href="/product/<%= product.id %>"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>"> </a>
+                <a href="/product/?id=<%= product.id %>"> <img src="<%= product.thumbnail %>" alt="<%= product.title %>" title="<%= product.title %>"> </a>
              
                 <p>
                     <div class="price">   Price: <%= formattedPrice(product.price) %>  </div>
                     <div class="discount"> Discount:  <strong><%= product.discountPercentage %>%  </strong> </div>
                 </p>
                 <br>
-             
+        
                 <p>
                     <div class="original"> Original Price: <del> <%= getOriginalPrice(product) %> </del> </div>
 
@@ -29,9 +29,11 @@
                 </p>
                 <br>
                 <p>
-                    <a href="/" class="btn btn-add-to-cart">Buy Now</a>
+                    <form action="/add-to-cart" method="post">
+                        <button class="btn btn-add-to-cart"> Buy Now </button>
+                        <input type="hidden" name="id" value="<%= product.id %>">
+                    </form>
                 </p>
-                
             </li>
         <% }) %>
     </ul>
