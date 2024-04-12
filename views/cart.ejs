@@ -39,7 +39,7 @@
                     <%= item.title %>
                 </td>
                 <td>
-                    <input type="number" name="" max="10" style="width:50px" id="" value="1">
+                    <input type="number" name="" min="1" max="10" style="width:50px" id="" value="1">
                 </td>
                 <td>
                     <%- formattedPrice(item.price) %>
@@ -48,10 +48,7 @@
                     <%- formattedPrice(item.price) %>
                 </td>
             </tr>
-
         </tbody>
-
-
     </table>
 </body>
 </html>

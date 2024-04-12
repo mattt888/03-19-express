@@ -1,3 +1,4 @@
+const { log } = require('node:console')
 const fs = require('node:fs')
 
 module.exports = {
@@ -7,6 +8,7 @@ module.exports = {
     },
 
     getOriginalPrice : function  (product) {
+        log('product price:', product.price)
         return this.formattedPrice( Math.round( originalPrice = product.price / ( 1 - ( product.discountPercentage / 100 ))))
     },
 

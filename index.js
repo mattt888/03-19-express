@@ -2,6 +2,7 @@ const express = require('express')
 const { log } = require('node:console')
 const utils = require('./utils')
 const lang = require('./languages/hu')
+const session = require('express-session')
 
 const app = express()
 
@@ -11,6 +12,13 @@ app.use(express.static('public'))
 
 app.use(express.urlencoded( {extended: true} ))
 
+app.use(session ({
+    secret: 'titkos-kulcs',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+
+}))
 
 app.use(function(req, res, next){
     
@@ -29,7 +37,6 @@ app.use(function(req, res, next){
             return lang[langAttr]
         }
     }
-
     next()
 })
 
@@ -76,9 +83,15 @@ app.get('/product/', (req,res) => {
 })
 
 app.post('/add-to-cart', (req,res) => {
+
+    req.session.productId = req.body.id
+    return res.redirect('/add-to-cart');
+})
+
+app.get('/add-to-cart', (req,res) => {
     utils.getProducts().then( productsList => {
 
-        const found = productsList.products.filter( product => product.id == req.body.id)[0]
+        const found = productsList.products.filter( product => product.id == req.session.productId)[0]
         log('found:', found)
 
         res.render('cart', { item: found, meta: {

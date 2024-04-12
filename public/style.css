@@ -138,18 +138,14 @@ table {
     text-align: center;
 }
 
-th {
+th, tr > td {
     border: 1px solid;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 15px;
+    padding: 20px;
 }
 
-tbody > tr > td {
-    border: 1px solid;
-    padding: 15px;
-}
 
 span img {
     width: 150px;
@@ -158,8 +154,20 @@ span img {
     padding: 0px !important;
     margin: 0px;
     object-fit: cover;
+    margin: -20px;
 }
 
 table thead {
     background-color: rgba(236, 139, 196, 0.596);
+}
+
+/* Media query a reszponzív elrendezéshez */
+@media (max-width: 800px) {
+    table thead {
+        background-color: rgba(32, 209, 97, 0.596);
+    }
+    
+    th, td {
+        display: block;
+    }
 }
