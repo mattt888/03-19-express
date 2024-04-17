@@ -29,9 +29,19 @@
                 </p>
                 <br>
                 <p>
-                    <form action="/add-to-cart" method="post">
-                        <button class="btn btn-add-to-cart"> Buy Now </button>
-                        <input type="hidden" name="id" value="<%= product.id %>">
+                    <form action="/add-to-cart" method="post" id="myForm">
+                        <div id="div1">
+                            <!-- <input type="number" name="" min="1" max="99" id="" value="0" size="2"> -->
+                            <input name="quantity" type="number" maxlength="2" value="0" min="0" max="99" />
+                            
+                            <!-- <input type='button' value='-' class='qtyminus-minus' field='quantity' step="1" />
+                            <input type='text' name='quantity' value='0' class='qty' maxlength="2" size="5" min="0" max="99"  />
+                            <input type='button' value='+' class='qtyplus plus' field='quantity' step="1" /> -->
+                        </div>
+                        <div id="div2">
+                            <button class="btn btn-add-to-cart"> Buy Now </button>
+                            <input type="hidden" name="id" value="<%= product.id %>">
+                        </div>
                     </form>
                 </p>
             </li>

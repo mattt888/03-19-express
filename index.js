@@ -16,8 +16,7 @@ app.use(session ({
     secret: 'titkos-kulcs',
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false },
-
+    cookie: { secure: false, maxAge: (60 * 60 * 24 * 30) * 1000 }, // 30 napig tárolódik a session-ben
 }))
 
 app.use(function(req, res, next){
@@ -40,6 +39,11 @@ app.use(function(req, res, next){
     next()
 })
 
+app.use( (req, res, next) => {
+    req.getTotal = utils.getTotal
+    return next()
+})
+
 app.get('/', (req, res) => {
 
 utils.getProducts()
@@ -49,7 +53,6 @@ utils.getProducts()
             title: 'Terméklista EXPRESS',
             description: 'Ez a webshopunk termékeinek a promó szövege, placeholder szöveg'
         } })
-
     })
 })
 
@@ -84,17 +87,48 @@ app.get('/product/', (req,res) => {
 
 app.post('/add-to-cart', (req,res) => {
 
-    req.session.productId = req.body.id
+    const quantity = req.body.quantity;
+    const id = req.body.id;
+
+    if( !req.session.products) {
+            req.session.products = []
+            req.session.products.push(id)
+    } else {
+        req.session.products.push(id)
+    }
+
     return res.redirect('/add-to-cart');
 })
 
 app.get('/add-to-cart', (req,res) => {
+
     utils.getProducts().then( productsList => {
 
-        const found = productsList.products.filter( product => product.id == req.session.productId)[0]
-        log('found:', found)
+        let foundList;
+        if ( !req.session.products )
+        foundList = []
+        foundList = req.session.products
 
-        res.render('cart', { item: found, meta: {
+        // const filteredList = productsList.products.filter( filteredItem => {
+        //     return foundList.findIndex( foundIndex => {
+        //         return foundIndex == filteredItem.id }) > -1
+        // })
+
+        const filteredList = productsList.products.filter( filteredItem => 
+            foundList.findIndex ( foundIndex => 
+                foundIndex == filteredItem.id ) > -1 )
+        
+        log('foundList = req.session.products:', req.session.products)
+        log('foundList:', foundList)
+        
+        // res.end( JSON.stringify(filteredList))
+        // return;
+
+        log('filteredList:', filteredList)
+
+        // res.end(`Az össz ár ${req.getTotal(req.session.products)} ${utils.formattedPrice(price)}`)
+
+        res.render('cart', { items: filteredList, total: req.getTotal(filteredList), meta: {
             title: 'Kosár',
             description: ''
         } })

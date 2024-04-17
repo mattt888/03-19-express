@@ -80,13 +80,6 @@ span {
     color: orange;
 }
 
-button {
-    width: 100%;
-    background-color: yellowgreen;
-    font-size: larger;
-    cursor: pointer;
-}
-
 button:hover {
     background-color: rgba(93,153,48,0.4);
   }
@@ -97,7 +90,7 @@ button:hover {
 }
 
 .btn-add-to-cart {
-    display: block;
+    display: inline;
     background-color: lightgreen;
     border: 1px inset;
     text-decoration: none;
@@ -143,13 +136,12 @@ th, tr > td {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    padding: 20px;
+    padding: 15px;
 }
 
-
 span img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     display: block;
     padding: 0px !important;
     margin: 0px;
@@ -161,13 +153,49 @@ table thead {
     background-color: rgba(236, 139, 196, 0.596);
 }
 
-/* Media query a reszponzív elrendezéshez */
-@media (max-width: 800px) {
-    table thead {
-        background-color: rgba(32, 209, 97, 0.596);
-    }
-    
-    th, td {
-        display: block;
-    }
+input[type=button], input[type=text]  {
+    font-size: 130%
 }
+
+.qty {
+    text-align: center;
+    width: 40px;
+}
+
+#myForm {
+    display: flex;
+    margin: -2px 0 -12px;
+}
+
+#div1 {
+    width: auto;
+    display: flex;
+}
+
+#div2 {
+    width: 100%;
+    margin-left: 6px;
+}
+
+/* .qtyminus-minus {
+    margin-left: -4px!important
+}
+
+input[type='button'], input[type='text'], button {
+    margin: 0px 2px;
+} */
+
+button {
+    /* margin: 0px 2px; */
+    margin-left: 2px;
+    width: 100%;
+    background-color: yellowgreen;
+    font-size: larger;
+    cursor: pointer;
+}
+
+input[type='number'] {
+    text-align: center;
+    margin-left: -2px
+} 
+
