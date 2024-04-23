@@ -26,5 +26,19 @@ module.exports = {
             total += demoProduct.price
         })
         return total;
+    },
+
+    getSubtotal : function (price, quantity) {
+        subtotal = price * quantity
+        return this.formattedPrice(subtotal)
+    },
+
+    getFulltotal : function (finalList) {
+
     }
 }
+
+// const total = finalList.reduce((acc, product) => {
+//     return acc + (product.price * product.quantity);
+//   }, 0);
+  
