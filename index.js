@@ -94,7 +94,9 @@ app.get('/product/', (req,res) => {
 app.post('/add-to-cart', (req,res) => {
 
     log('POST /add-to-cart Kezdete: ---------------------------------------------------------------')
-    log('req.body.id: ', req.body.id )
+    log('req.body.id 111: ', req.body.id )
+    log('req.body:: ', req.body )
+   
     log('req.session.products 11111: ', req.session.products )
 
     if( !req.session.products) {
@@ -105,40 +107,29 @@ app.post('/add-to-cart', (req,res) => {
         req.session.products = []
         log('req.session.products 33333: ', req.session.products )
 
-        /* 1111  2024 04 18  11:00
-        objektumokat kell belepakolni tömbelemként
-        vezércsel: az egész req.body-t fogjuk küldeni
-        itt:
-            if( !req.session.products) {
-                req.session.products.push(req.body) }
-        és itt is:
-            else {
-                req.session.products.push(req.body) }
-        mert ebben akkor benne lesz az id és a quantity is
-        utána a get-es /add-to-cart-hoz fogunk továbbítódni
-        ott pedig meg kellene valahogy jeleníteni
-        itt:
-        req.session.products.push(req.body)
-        az egész objektumot belepakoljuk a session-be
-        scroll to 
-        app.get('/add-to-cart', 
-        return res.end( JSON.stringify(req.session.products))
-        output a böngészőben:
-        [{"quantity":"2","id":"2"}, {"quantity":"5","id":"3"}, {"quantity":"9","id":"4"}]
-        ez egy tömb aminek objektumok alkotják az elemeit
-        */
         req.session.products.push(req.body)
         log('req.session.products 44444: ', req.session.products )
-
     }
 
     const findId = req.body.id
+    log('findId = req.body.id: A küldött termék / A kosárba rakott termék id-ja: ', req.body.id )
     const requiredIndex = req.session.products.findIndex( obj => obj.id == findId)
+    log('requiredIndex: ', requiredIndex )
 
+    log('req.bodyyyy: ', req.body )
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // const itemsToAddToCart = new Set();
+    // log('itemsToAddToCart: ', itemsToAddToCart )
+    // itemsToAddToCart.add(requiredIndex);
+    
     if (requiredIndex > -1) {
         req.session.products.splice( requiredIndex, 1)
     }
 
+    // log('itemsToAddToCart: ', itemsToAddToCart )
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    
     req.session.products.push(req.body)
     log('req.session.products 55555: ', req.session.products )
 
@@ -185,11 +176,11 @@ app.get('/add-to-cart', (req,res) => {
         // res.end( JSON.stringify(filteredList))
         // return;
 
-        log('filteredList tömb Kezdete ----------------------------------------------------------------------------', filteredList)
-        log('filteredList tömb VÉGE ----------------------------------------------------------------------------')
+        // log('filteredList tömb Kezdete ----------------------------------------------------------------------------', filteredList)
+        // log('filteredList tömb VÉGE ----------------------------------------------------------------------------')
 
         res.render('cart', { items: finalList, 
-            total: req.getTotal(finalList), 
+            // total: req.getTotal(finalList), 
             subtotal: utils.getSubtotal(finalList),
             fulltotal: utils.getFulltotal(finalList),
             meta: {

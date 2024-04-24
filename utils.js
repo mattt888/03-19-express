@@ -4,7 +4,7 @@ const fs = require('node:fs')
 module.exports = {
 
     formattedPrice : function (price) {
-        return price + ' Ft'
+        return price.toLocaleString('hu-HU') + ' Ft'
     },
 
     getOriginalPrice : function  (product) {
@@ -33,12 +33,24 @@ module.exports = {
         return this.formattedPrice(subtotal)
     },
 
-    getFulltotal : function (finalList) {
+    // getFulltotal: function (items) {
+    //     // Kezdetben az összes subtotal érték 0 lesz
+    //     const total = items.reduce((acc, product) => {
+    //         // Az acc a felgyüjtött összeg, product a jelenlegi elem a tömbben
+    //         const subtotal = product.price * product.quantity;
+    //         // Adjuk hozzá a jelenlegi subtotal-t az acc-hez
+    //         return acc + subtotal;
+    //     }, 0); // A kezdeti érték 0, itt indul az összegzés
+    //     // A reduce végén visszaadjuk az összes subtotal-t
+    //     return this.formattedPrice(total);
+    // }
 
+
+    getFulltotal: function (items) {
+        let total = 0;
+        items.forEach( product => {
+            total += product.price * product.quantity
+        })
+        return this.formattedPrice(total);
     }
 }
-
-// const total = finalList.reduce((acc, product) => {
-//     return acc + (product.price * product.quantity);
-//   }, 0);
-  
